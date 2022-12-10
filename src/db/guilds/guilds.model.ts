@@ -6,8 +6,8 @@ interface GuildCreationAttrs {
 
 @Table({ tableName: 'guilds' })
 export class Guild extends Model<Guild, GuildCreationAttrs> {
-  @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
-  id: number;
+  // @Column({ type: DataType.INTEGER, unique: true, autoIncrement: true, primaryKey: true })
+  // id: number;
 
   @Column({ type: DataType.STRING(50), unique: true, allowNull: false })
   guild_id: string;

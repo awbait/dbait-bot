@@ -9,7 +9,7 @@ import {
 import { SetupDto } from "./dto/setup.dto";
 
 @Command({
-  name: "setup",
+  name: "song",
   description: "Конфигурация сервера",
 })
 @UsePipes(TransformPipe)
