@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Once, InjectDiscordClient, On } from '@discord-nestjs/core';
-import { Client, Message } from 'discord.js';
+import { Client } from 'discord.js';
 
 @Injectable()
 export class BotGateway {
@@ -15,11 +15,4 @@ export class BotGateway {
   onReady() {
     this.logger.log(`Bot ${this.client.user.tag} was started!`);
   }
-
-  // @On('messageCreate')
-  // async onMessage(message: Message): Promise<void> {
-  //   if (!message.author.bot) {
-  //     await message.reply("I'm watching you");
-  //   }
-  // }
 }

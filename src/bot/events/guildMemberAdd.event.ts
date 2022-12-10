@@ -8,6 +8,7 @@ export class GuildMemberAddEvent {
 
   @On('guildMemberAdd')
   async addMember(member: GuildMember): Promise<void> {
+    // TODO: Получить ID канала с базы, ошибка если не найден)
     const welcomeChannel = member.guild.channels.cache.get('1020076728292491285') as GuildTextBasedChannel;
 
     const WelcomeEmbed = new EmbedBuilder()
