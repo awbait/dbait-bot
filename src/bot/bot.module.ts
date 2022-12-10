@@ -3,10 +3,11 @@ import { Module } from "@nestjs/common";
 import { GatewayIntentBits } from "discord.js";
 import { GuildsModule } from "src/db/guilds/guilds.module";
 import { BotGateway } from "./bot.gateway";
-import { BotService } from "./bot.service";
 import { SetupCommand } from "./commands/setup.command";
+import { AuthSubCommand } from "./commands/sub-commands/auth.command";
 import { GuildCreateEvent } from "./events/guildCreate.event";
 import { GuildMemberAddEvent } from "./events/guildMemberAdd.event";
+import { BotService } from './bot.service';
 
 @Module({
   imports: [
@@ -34,10 +35,11 @@ import { GuildMemberAddEvent } from "./events/guildMemberAdd.event";
   ],
   providers: [
     BotGateway,
-    BotService,
     GuildMemberAddEvent,
     GuildCreateEvent,
-    SetupCommand
+    SetupCommand,
+    AuthSubCommand,
+    BotService
   ],
 })
 export class BotModule {}
