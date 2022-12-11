@@ -1,6 +1,6 @@
 import { InjectDiscordClient } from '@discord-nestjs/core';
 import { Injectable } from '@nestjs/common';
-import { BaseGuildTextChannel, Client, GuildTextBasedChannel } from 'discord.js';
+import { ActionRowBuilder, BaseGuildTextChannel, ButtonBuilder, ButtonStyle, Client, EmbedBuilder, GuildTextBasedChannel } from 'discord.js';
 import { GuildsService } from 'src/db/guilds/guilds.service';
 
 @Injectable()
@@ -19,7 +19,20 @@ export class BotService {
     //console.log(channel)
     if (!channel) return;
 
-    channel.send('sfewf');
+    const authEmbed = new EmbedBuilder()
+      .setColor('#2F3136')
+      .setTitle(':white_check_mark: Авторизация')
+      .setDescription('Для получения полного доступа, нажмите на кнопку ниже');
+
+    const row = new ActionRowBuilder<ButtonBuilder>()
+			.addComponents(
+				new ButtonBuilder()
+					.setCustomId('button_auth')
+					.setLabel('Авторизоваться')
+					.setStyle(ButtonStyle.Success),
+			);
+
+    channel.send({embeds: [authEmbed], components: [row]});
     
   }
 }
