@@ -1,6 +1,6 @@
 import { InjectDiscordClient, On, UseGuards } from "@discord-nestjs/core";
 import { Injectable, Logger } from "@nestjs/common";
-import { Client, Guild } from "discord.js";
+import { Client } from "discord.js";
 import { GuildsService } from "src/db/guilds/guilds.service";
 import { BotGateway } from "../bot.gateway";
 import { BotService } from "../bot.service";
@@ -19,7 +19,6 @@ export class InteractionCreateEvent {
   @UseGuards(IsAuthButtonInteractionGuard)
   async guildCreate(interaction): Promise<void> {
     const guildSettings = await this.guildService.findGuildById(interaction.guild.id);
-    console.log('qwe', guildSettings)
     if (interaction.member.roles.cache.has(guildSettings.get("auth_role_id"))) {
       interaction.reply({ content: "Вы уже авторизованы.", ephemeral: true });
       return;

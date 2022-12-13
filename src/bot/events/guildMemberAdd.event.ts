@@ -1,15 +1,17 @@
 import { InjectDiscordClient, On } from "@discord-nestjs/core";
 import { Injectable } from "@nestjs/common";
 import { Client, EmbedBuilder, GuildMember, GuildTextBasedChannel } from "discord.js";
+import { GuildsService } from "src/db/guilds/guilds.service";
 
 @Injectable()
 export class GuildMemberAddEvent {
-  constructor(@InjectDiscordClient() private readonly client: Client) {}
+  constructor(@InjectDiscordClient() private readonly client: Client,
+  private guildService: GuildsService,) {}
 
   @On('guildMemberAdd')
   async addMember(member: GuildMember): Promise<void> {
-    // TODO: Получить ID канала с базы, ошибка если не найден)
-    const welcomeChannel = member.guild.channels.cache.get('1020076728292491285') as GuildTextBasedChannel;
+    const guildSettings = await this.guildService.findGuildById(member.guild.id);
+    const welcomeChannel = member.guild.channels.cache.get(guildSettings.welcome_channel_id) as GuildTextBasedChannel;
 
     const WelcomeEmbed = new EmbedBuilder()
       .setColor('#36393F')

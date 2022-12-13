@@ -25,34 +25,9 @@ export class AuthSubCommand implements DiscordTransformedCommand<AuthDto> {
     @Payload() dto: AuthDto,
     { interaction }: TransformedCommandExecutionContext
   ): Promise<Object> {
-    // TODO: Admin Role
+    // TODO: Admin Role 
     const guildConfig = await this.guildService.updateGuild({ auth_channel_id: dto.channel,
-      auth_role_id: dto.role }, interaction.guild.id)
-
-    ////////////////////////////////
-    // const guildSettings = await this.guildService.findGuildById(guild_id);
-    // const guild = await this.client.guilds.fetch(guild_id);
-    // if (!guild) return;
-    // const channel = (await guild.channels.fetch(
-    //   guildSettings.get("auth_channel_id")
-    // )) as GuildTextBasedChannel;
-    // //console.log(channel)
-    // if (!channel) return;
-
-    // const authEmbed = new EmbedBuilder()
-    //   .setColor("#2F3136")
-    //   .setTitle("Авторизация")
-    //   .setDescription("Для получения полного доступа, нажмите на кнопку ниже");
-
-    // const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
-    //   new ButtonBuilder()
-    //     .setCustomId("button_auth")
-    //     .setEmoji("✅")
-    //     .setLabel("Авторизоваться")
-    //     .setStyle(ButtonStyle.Success)
-    // );
-    // channel.send({ embeds: [authEmbed], components: [row] });
-    ////////////////////////////////
+      auth_role_id: dto.role }, interaction.guild.id);
 
     const authEmbed = new EmbedBuilder()
       .setColor("#2F3136")
