@@ -1,7 +1,10 @@
-import { InjectDiscordClient } from '@discord-nestjs/core';
-import { Injectable } from '@nestjs/common';
-import { ActionRowBuilder, BaseGuildTextChannel, ButtonBuilder, ButtonStyle, Client, EmbedBuilder, GuildTextBasedChannel } from 'discord.js';
-import { GuildsService } from 'src/db/guilds/guilds.service';
+import { InjectDiscordClient } from "@discord-nestjs/core";
+import { Injectable } from "@nestjs/common";
+import {
+  BaseGuildTextChannel,
+  Client,
+} from "discord.js";
+import { GuildsService } from "src/db/guilds/guilds.service";
 
 @Injectable()
 export class BotService {
@@ -10,28 +13,18 @@ export class BotService {
     private readonly client: Client,
     private guildService: GuildsService
   ) {}
-  async sendAuthEmbed(guild_id) {
-    // https://vkusniyobed.ru/image/catalog/banner/logodljasajta.png
-    const guildSettings = await this.guildService.findGuildById(guild_id);
-    const guild = await this.client.guilds.fetch(guild_id)
-    if (!guild) return;
-    const channel = await guild.channels.fetch(guildSettings.get('auth_channel_id')) as GuildTextBasedChannel;
-    //console.log(channel)
-    if (!channel) return;
+  async sendMessage(channelId: string, message: Object) {
+    const channel = this.client.channels.cache.get(channelId) as BaseGuildTextChannel;
+    const msg = await channel.send(message);
+    return msg;
+  }
 
-    const authEmbed = new EmbedBuilder()
-      .setColor('#2F3136')
-      .setTitle('Авторизация')
-      .setDescription('Для получения полного доступа, нажмите на кнопку ниже');
-
-    const row = new ActionRowBuilder<ButtonBuilder>()
-			.addComponents(
-				new ButtonBuilder()
-					.setCustomId('button_auth')
-          .setEmoji('✅')
-					.setLabel('Авторизоваться')
-					.setStyle(ButtonStyle.Success),
-			);
-    channel.send({embeds: [authEmbed], components: [row]});
+  async updateMessage(channelId: string, messageId: string, newMessage: Object) {
+    const channel = this.client.channels.cache.get(channelId) as BaseGuildTextChannel;
+    const message = await channel.messages.fetch(messageId);
+    if (!message) return false;
+    
+    const msg = await message.edit(newMessage);
+    return msg;
   }
 }

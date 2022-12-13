@@ -14,14 +14,16 @@ export class GuildsService {
   async deleteGuild(guild_id: string) {
     await this.guildRepository.destroy({ where: { guild_id } });
   }
-  async updateGuild(data) {
-    await this.guildRepository.update(
-      { auth_channel_id: data.auth_channel_id, auth_role_id: data.auth_role_id },
-      {where: { guild_id: data.guild_id }}
+  async updateGuild(data, guildId) {
+    const guild = await this.guildRepository.update(
+      data,
+      { where: { guild_id: guildId }, returning: true}
     );
+    return guild[1][0].get();
   }
   async findGuildById(guild_id: string) {
     const guild = await this.guildRepository.findOne({ where: { guild_id } });
+    console.log(guild);
     return guild;
   }
 }
