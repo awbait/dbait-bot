@@ -8,6 +8,7 @@ import { AuthSubCommand } from "./commands/sub-commands/auth.command";
 import { GuildCreateEvent } from "./events/guildCreate.event";
 import { GuildMemberAddEvent } from "./events/guildMemberAdd.event";
 import { BotService } from './bot.service';
+import { InteractionCreateEvent } from "./events/interactionCreate.event";
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { BotService } from './bot.service';
         discordClientOptions: {
           intents: [
             GatewayIntentBits.Guilds,
+            GatewayIntentBits.GuildMembers,
             GatewayIntentBits.GuildMessages,
             GatewayIntentBits.MessageContent,
           ],
@@ -25,6 +27,10 @@ import { BotService } from './bot.service';
         registerCommandOptions: [
           {
             forGuild: '1020076727474606111',
+            removeCommandsBefore: true,
+          },
+          {
+            forGuild: '758372773923258399',
             removeCommandsBefore: true,
           }
         ],
@@ -35,8 +41,11 @@ import { BotService } from './bot.service';
   ],
   providers: [
     BotGateway,
+
     GuildMemberAddEvent,
     GuildCreateEvent,
+    InteractionCreateEvent,
+
     SetupCommand,
     AuthSubCommand,
     BotService

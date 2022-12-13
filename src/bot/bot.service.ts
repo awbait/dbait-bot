@@ -21,18 +21,17 @@ export class BotService {
 
     const authEmbed = new EmbedBuilder()
       .setColor('#2F3136')
-      .setTitle(':white_check_mark: Авторизация')
+      .setTitle('Авторизация')
       .setDescription('Для получения полного доступа, нажмите на кнопку ниже');
 
     const row = new ActionRowBuilder<ButtonBuilder>()
 			.addComponents(
 				new ButtonBuilder()
 					.setCustomId('button_auth')
+          .setEmoji('✅')
 					.setLabel('Авторизоваться')
 					.setStyle(ButtonStyle.Success),
 			);
-
     channel.send({embeds: [authEmbed], components: [row]});
-    
   }
 }
