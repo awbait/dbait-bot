@@ -23,4 +23,10 @@ export class Guild extends Model<Guild, GuildCreationAttrs> {
 
   @Column({ type: DataType.STRING(50), allowNull: true })
   auth_message_id: string;
+
+  // @Column({ type: DataType.STRING(50), allowNull: true })
+  // design_channel_id: string;
+
+  // @Column({ type: DataType.STRING(50), allowNull: true })
+  // design_message_id: string;
 }

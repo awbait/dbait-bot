@@ -14,7 +14,7 @@ export class GuildMemberAddEvent {
     const welcomeChannel = member.guild.channels.cache.get(guildSettings.welcome_channel_id) as GuildTextBasedChannel;
 
     const WelcomeEmbed = new EmbedBuilder()
-      .setColor('#36393F')
+      .setColor('#2F3136')
       .setDescription(`Добро пожаловать, <@${member.id}>! За полным доступом сюда <#1023651349021327481>.`);
     
     welcomeChannel.send({ embeds: [WelcomeEmbed] });

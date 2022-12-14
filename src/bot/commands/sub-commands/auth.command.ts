@@ -31,8 +31,8 @@ export class AuthSubCommand implements DiscordTransformedCommand<AuthDto> {
 
     const authEmbed = new EmbedBuilder()
       .setColor("#2F3136")
-      .setTitle("Авторизация")
-      .setDescription("Для получения полного доступа, нажмите на кнопку ниже");
+      .setTitle(":unlock: Авторизация")
+      .setImage('https://i.imgur.com/Lwskovh.png');
     const row = new ActionRowBuilder<ButtonBuilder>()
       .addComponents(
         new ButtonBuilder()
