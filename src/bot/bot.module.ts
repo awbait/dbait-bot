@@ -1,15 +1,10 @@
 import { DiscordModule } from "@discord-nestjs/core";
 import { Module } from "@nestjs/common";
 import { GatewayIntentBits } from "discord.js";
-import { GuildsModule } from "src/db/guilds/guilds.module";
+import { ServersModule } from "src/db/servers/servers.module";
+import { ServersService } from "src/db/servers/servers.service";
 import { BotGateway } from "./bot.gateway";
-import { SetupCommand } from "./commands/setup.command";
-import { AuthSubCommand } from "./commands/sub-commands/auth.command";
-import { GuildCreateEvent } from "./events/guildCreate.event";
-import { GuildMemberAddEvent } from "./events/guildMemberAdd.event";
-import { BotService } from './bot.service';
-import { InteractionCreateEvent } from "./events/interactionCreate.event";
-import { HappyNewYearSubCommand } from "./commands/sub-commands/new-year.command";
+import { GuildCreateDeleteEvent } from "./events/guildCreateDelete.event";
 
 @Module({
   imports: [
@@ -38,19 +33,21 @@ import { HappyNewYearSubCommand } from "./commands/sub-commands/new-year.command
         failOnLogin: true,
       }),
     }),
-    GuildsModule,
+    ServersModule
   ],
   providers: [
     BotGateway,
 
-    GuildMemberAddEvent,
-    GuildCreateEvent,
-    InteractionCreateEvent,
+    /* Events */
+    GuildCreateDeleteEvent
+    // GuildCreateEvent,
+    // GuildMemberAddEvent,
+    // InteractionCreateEvent,
 
-    SetupCommand,
-    AuthSubCommand,
-    HappyNewYearSubCommand,
-    BotService
+    // SetupCommand,
+    // AuthSubCommand,
+    // HappyNewYearSubCommand,
+    // BotService
   ],
 })
 export class BotModule {}
