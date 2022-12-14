@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { SequelizeModule } from '@nestjs/sequelize';
 import { BotModule } from './bot/bot.module';
 import { Guild } from './db/guilds/guilds.model';
 import { GuildsModule } from './db/guilds/guilds.module';
+import { MessagesModule } from './db/messages/messages.module';
 
 @Module({
   imports: [
@@ -22,6 +22,7 @@ import { GuildsModule } from './db/guilds/guilds.module';
     }),
     BotModule,
     GuildsModule,
+    MessagesModule,
   ],
 })
 export class AppModule {}

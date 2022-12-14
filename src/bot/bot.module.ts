@@ -9,6 +9,7 @@ import { GuildCreateEvent } from "./events/guildCreate.event";
 import { GuildMemberAddEvent } from "./events/guildMemberAdd.event";
 import { BotService } from './bot.service';
 import { InteractionCreateEvent } from "./events/interactionCreate.event";
+import { HappyNewYearSubCommand } from "./commands/sub-commands/new-year.command";
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { InteractionCreateEvent } from "./events/interactionCreate.event";
 
     SetupCommand,
     AuthSubCommand,
+    HappyNewYearSubCommand,
     BotService
   ],
 })
