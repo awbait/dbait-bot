@@ -8,7 +8,7 @@ import {
 } from "@discord-nestjs/core";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
 import { BotService } from "src/bot/bot.service";
-import { GuildsService } from "src/db/guilds/guilds.service";
+import { MessagesService } from "src/db/messages/messages.service";
 import { AuthDto } from "../dto/auth.dto";
 
 @SubCommand({
@@ -18,21 +18,20 @@ import { AuthDto } from "../dto/auth.dto";
 @UsePipes(TransformPipe)
 export class AuthSubCommand implements DiscordTransformedCommand<AuthDto> {
   constructor(
-    private guildService: GuildsService,
-    private botService: BotService
+    private botService: BotService,
+    private messagesService: MessagesService
   ) {}
   async handler(
     @Payload() dto: AuthDto,
     { interaction }: TransformedCommandExecutionContext
   ): Promise<Object> {
-    // TODO: Admin Role 
-    const guildConfig = await this.guildService.updateGuild({ auth_channel_id: dto.channel,
-      auth_role_id: dto.role }, interaction.guild.id);
+    // TODO: Admin Role
 
     const authEmbed = new EmbedBuilder()
       .setColor("#2F3136")
       .setTitle(":unlock: Авторизация")
       .setImage('https://i.imgur.com/Lwskovh.png');
+
     const row = new ActionRowBuilder<ButtonBuilder>()
       .addComponents(
         new ButtonBuilder()
@@ -41,16 +40,29 @@ export class AuthSubCommand implements DiscordTransformedCommand<AuthDto> {
           .setLabel("Авторизоваться")
           .setStyle(ButtonStyle.Success)
       );
-    const msg = { embeds: [authEmbed], components: [row] }
-    if (guildConfig.auth_message_id) {
-      this.botService.updateMessage(guildConfig.auth_channel_id, guildConfig.auth_message_id, msg);
+
+    const msg = { embeds: [authEmbed], components: [row] };
+
+    let savedMessage = await this.messagesService.findOne({
+      message_name: "auth",
+      server: { guild_id: interaction.guild.id },
+    });
+    
+    if (savedMessage) {
+      this.botService.updateMessage(savedMessage.channel_id, savedMessage.message_id, msg);
     } else {
-      const newMsg = await this.botService.sendMessage(guildConfig.auth_channel_id, msg);
-      this.guildService.updateGuild({ auth_message_id: newMsg.id }, interaction.guild.id);
+      const newMsg = await this.botService.sendMessage(dto.channel, msg);
+      savedMessage = await this.messagesService.create({
+        message_name: 'auth',
+        channel_id: dto.channel,
+        role_id: dto.role,
+        message_id: newMsg.id,
+        guild_id: interaction.guild.id
+      });
     }
 
     return {
-      content: "Данные обновлены",
+      content: "Конфигурация изменена",
       ephemeral: true,
     };
   }

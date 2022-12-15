@@ -67,7 +67,7 @@ export class HappyNewYearSubCommand
     }
 
     return {
-      content: "Конфигурация изменена.",
+      content: "Конфигурация изменена",
       ephemeral: true,
     };
   }

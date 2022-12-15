@@ -6,7 +6,7 @@ import { HappyNewYearSubCommand } from "./sub-commands/new-year.command";
   name: 'setup',
   description: 'Конфигурация сервера',
   include: [
-    // AuthSubCommand,
+    AuthSubCommand,
     HappyNewYearSubCommand
   ]
 })

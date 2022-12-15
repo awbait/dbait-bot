@@ -8,7 +8,6 @@ import {
 } from "@discord-nestjs/core";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, StringSelectMenuBuilder } from "discord.js";
 import { BotService } from "src/bot/bot.service";
-import { GuildsService } from "src/db/guilds/guilds.service";
 import { DesignDto } from "../dto/design.dto";
 
 @SubCommand({
@@ -18,7 +17,6 @@ import { DesignDto } from "../dto/design.dto";
 @UsePipes(TransformPipe)
 export class DesignSubCommand implements DiscordTransformedCommand<DesignDto> {
   constructor(
-    private guildService: GuildsService,
     private botService: BotService
   ) {}
   async handler(
@@ -26,7 +24,7 @@ export class DesignSubCommand implements DiscordTransformedCommand<DesignDto> {
     { interaction }: TransformedCommandExecutionContext
   ): Promise<Object> {
     // TODO: Admin Role 
-    const guildConfig = await this.guildService.updateGuild({ design_channel_id: dto.channel }, interaction.guild.id);
+    //const guildConfig = await this.guildService.updateGuild({ design_channel_id: dto.channel }, interaction.guild.id);
 
     const designEmbed = new EmbedBuilder()
       .setColor("#2F3136")

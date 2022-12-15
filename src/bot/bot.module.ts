@@ -7,8 +7,10 @@ import { ServersService } from "src/db/servers/servers.service";
 import { BotGateway } from "./bot.gateway";
 import { BotService } from "./bot.service";
 import { SetupCommand } from "./commands/setup.command";
+import { AuthSubCommand } from "./commands/sub-commands/auth.command";
 import { HappyNewYearSubCommand } from "./commands/sub-commands/new-year.command";
 import { GuildCreateDeleteEvent } from "./events/guildCreateDelete.event";
+import { InteractionCreateEvent } from "./events/interactionCreate.event";
 
 @Module({
   imports: [
@@ -46,16 +48,13 @@ import { GuildCreateDeleteEvent } from "./events/guildCreateDelete.event";
 
     /* Events */
     GuildCreateDeleteEvent,
-    // GuildCreateEvent,
+    InteractionCreateEvent,
     // GuildMemberAddEvent,
-    // InteractionCreateEvent,
 
-
+    /* Commands */
     SetupCommand,
+    AuthSubCommand,
     HappyNewYearSubCommand
-    // AuthSubCommand,
-    // HappyNewYearSubCommand,
-    // 
   ],
 })
 export class BotModule {}
