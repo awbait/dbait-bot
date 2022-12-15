@@ -17,6 +17,10 @@ export class ServersService {
     return server;
   }
 
+  async findOne(data: object) {
+    const server = await this.serversRepository.findOne({ where: data });
+    return server;
+  }
   // findAll() {
   //   return `This action returns all servers`;
   // }

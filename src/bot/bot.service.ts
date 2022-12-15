@@ -4,14 +4,12 @@ import {
   BaseGuildTextChannel,
   Client,
 } from "discord.js";
-import { GuildsService } from "src/db/guilds/guilds.service";
 
 @Injectable()
 export class BotService {
   constructor(
     @InjectDiscordClient()
-    private readonly client: Client,
-    private guildService: GuildsService
+    private readonly client: Client
   ) {}
   async sendMessage(channelId: string, message: Object) {
     const channel = this.client.channels.cache.get(channelId) as BaseGuildTextChannel;
