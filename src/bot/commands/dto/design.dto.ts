@@ -1,4 +1,4 @@
-import { Channel, Param, ParamType } from '@discord-nestjs/core';
+import { Channel, Param } from '@discord-nestjs/core';
 import { ChannelType } from 'discord.js';
 
 export class DesignDto {

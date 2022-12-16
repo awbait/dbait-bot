@@ -12,7 +12,7 @@ export class Message {
   @Column()
   public channel_id: string;
 
-  @Column()
+  @Column({ nullable: true})
   public role_id: string;
 
   @Column()

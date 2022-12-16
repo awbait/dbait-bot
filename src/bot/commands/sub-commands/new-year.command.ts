@@ -18,7 +18,7 @@ import { HappyNewYearDto } from "../dto/happy-new-year.dto";
 
 @SubCommand({
   name: "happy-new-year",
-  description: "Конфигурация канала авторизации",
+  description: "Конфигурация канала дизайна",
 })
 @UsePipes(TransformPipe)
 export class HappyNewYearSubCommand

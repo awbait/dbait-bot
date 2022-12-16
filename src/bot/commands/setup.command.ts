@@ -1,5 +1,6 @@
 import { Command } from "@discord-nestjs/core";
 import { AuthSubCommand } from "./sub-commands/auth.command";
+import { DesignSubCommand } from "./sub-commands/design-role.command";
 import { HappyNewYearSubCommand } from "./sub-commands/new-year.command";
 
 @Command({
@@ -7,6 +8,7 @@ import { HappyNewYearSubCommand } from "./sub-commands/new-year.command";
   description: 'Конфигурация сервера',
   include: [
     AuthSubCommand,
+    DesignSubCommand,
     HappyNewYearSubCommand
   ]
 })

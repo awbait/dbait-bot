@@ -8,6 +8,7 @@ import { BotGateway } from "./bot.gateway";
 import { BotService } from "./bot.service";
 import { SetupCommand } from "./commands/setup.command";
 import { AuthSubCommand } from "./commands/sub-commands/auth.command";
+import { DesignSubCommand } from "./commands/sub-commands/design-role.command";
 import { HappyNewYearSubCommand } from "./commands/sub-commands/new-year.command";
 import { GuildCreateDeleteEvent } from "./events/guildCreateDelete.event";
 import { InteractionCreateEvent } from "./events/interactionCreate.event";
@@ -54,6 +55,7 @@ import { InteractionCreateEvent } from "./events/interactionCreate.event";
     /* Commands */
     SetupCommand,
     AuthSubCommand,
+    DesignSubCommand,
     HappyNewYearSubCommand
   ],
 })
